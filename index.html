@@ -1,0 +1,52 @@
+<!--
+  STEP 1 · Skeleton (this file is index.html)
+  1. Save it as index.html in your portfolio folder.
+  2. Create an empty folder named parts next to it.
+  3. Open index.html with Live Server (VS Code).
+  4. git add index.html
+     git commit -m "chore(setup): add html skeleton and base styles"
+     git push
+  Later steps: just add one file to parts/. Nothing to edit here.
+-->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YOUR NAME | Portfolio</title>
+<style>
+:root{--a:#1a73e8;--ink:#101114;--mu:#6b7078;--ln:#e6e7ea}
+*{box-sizing:border-box;margin:0}
+body{font-family:"Helvetica Neue",Inter,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink);line-height:1.6}
+main{max-width:44rem;margin:0 auto;padding:0 1.5rem}
+section{padding:3.5rem 0;border-top:1px solid var(--ln)}
+h1{font-size:3rem;letter-spacing:-.03em;line-height:1.1}
+h2{font-size:1.1rem;color:var(--a);margin-bottom:1rem}
+p{color:var(--mu)}
+a{color:var(--a)}
+.hero{padding:6rem 0 4rem;border:0}
+.hero p{font-size:1.25rem;margin-top:1rem}
+.tags{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;padding:0}
+.tags li{border:1px solid var(--ink);border-radius:2rem;padding:.3rem 1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1.5rem}
+.card{border-top:2px solid var(--a);padding-top:1rem}
+.card h3{margin-bottom:.4rem}
+.links{list-style:none;padding:0}
+footer{padding:2rem 0;border-top:1px solid var(--ln);color:var(--mu);font-size:.9rem}
+</style></head><body>
+<main>
+<div data-include="parts/hero.html"></div>
+<div data-include="parts/about.html"></div>
+<div data-include="parts/skills.html"></div>
+<div data-include="parts/projects.html"></div>
+<div data-include="parts/contact.html"></div>
+</main>
+<script>
+  // loads every <div data-include="..."> with the content of its file
+  // a part that does not exist yet is simply skipped
+  document.querySelectorAll('[data-include]').forEach(async (el) => {
+    try {
+      const res = await fetch(el.dataset.include);
+      if (res.ok) el.outerHTML = await res.text(); else el.remove();
+    } catch (e) { el.remove(); }
+  });
+</script>
+</body></html>
